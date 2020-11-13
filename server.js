@@ -54,5 +54,5 @@ app.use('/customers',customersControllers);
 
 
 app.listen(PORT,() =>{
-    console.log(`The server is running on ${PORT}`);
+    console.log(`The server is running on ${PORT} port`);
 })
