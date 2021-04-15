@@ -7,17 +7,17 @@ let myUser={
     email:"",
     phone:""
 }
-
+let myUsers=[];
 router.get('/', async (req, res)=>{
     let allCustomers = await Customers.find({});
     let myAllCutomers=allCustomers.map(user =>{
-        myUser.userId=user._id;    
-        myUser.firstName=user.firstName;
-        myUser.lastName=user.lastName;
-        myUser.phone=user.phone;
-        myUser.email=user.email;
-        return myUser;
-    })
+      return { userId:user._id,   
+        firstName:user.firstName,
+        lastName:user.lastName,
+        phone:user.phone,
+        email:user.email,
+       }
+    });
     res.send(myAllCutomers)
  });
 
