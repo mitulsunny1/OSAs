@@ -1,15 +1,36 @@
 const router = require('express').Router();
 const Customers= require('../models/customer');
-
+let myUser={
+    userId:"",
+    firstName:"",
+    lastName:"",
+    email:"",
+    phone:""
+}
 
 router.get('/', async (req, res)=>{
     let allCustomers = await Customers.find({});
-    res.send(allCustomers)
+    let myAllCutomers=allCustomers.map(user =>{
+        myUser.userId=user._id;    
+        myUser.firstName=user.firstName;
+        myUser.lastName=user.lastName;
+        myUser.phone=user.phone;
+        myUser.email=user.email;
+        return myUser;
+    })
+    res.send(myAllCutomers)
  });
 
  router.get('/:id', async(req, res)=>{
+   
+  
      let user = await Customers.findById(req.params.id,{});
-     res.send(user);
+    myUser.userId=user._id;    
+    myUser.firstName=user.firstName;
+    myUser.lastName=user.lastName;
+    myUser.phone=user.phone;
+    myUser.email=user.email;
+    res.send(myUser);
  })
  router.post('/', async(req,res) =>{
      const body={
@@ -24,6 +45,7 @@ router.get('/', async (req, res)=>{
 
  router.patch('/:id', async(req, res)=>{
     let user = await Customers.findByIdAndUpdate(req.params.id,req.body,{})
+
     res.send(user)
 })
 
