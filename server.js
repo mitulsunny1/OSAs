@@ -48,9 +48,12 @@ app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 
 
 //Controllers
-
 const customersControllers = require('./controllers/CustomerControllers');
 app.use('/customers',customersControllers);
+const studentsControllers = require('./controllers/StudentControllers');
+app.use('/students',studentsControllers);
+const phonesControllers = require('./controllers/PhoneControllers');
+app.use('/phones',phonesControllers);
 
 
 app.listen(PORT,() =>{
