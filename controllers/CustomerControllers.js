@@ -22,8 +22,6 @@ router.get('/', async (req, res)=>{
  });
 
  router.get('/:id', async(req, res)=>{
-   
-  
      let user = await Customers.findById(req.params.id,{});
     myUser.userId=user._id;    
     myUser.firstName=user.firstName;
@@ -45,7 +43,6 @@ router.get('/', async (req, res)=>{
 
  router.patch('/:id', async(req, res)=>{
     let user = await Customers.findByIdAndUpdate(req.params.id,req.body,{})
-
     res.send(user)
 })
 

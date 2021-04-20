@@ -7,6 +7,7 @@ router.get('/', async (req, res)=>{
     res.send(allStudents);
  });
 
+ //Get one user with phone numbers
  router.get('/:id', async (req, res)=>{
     let student = await Students.findById(req.params.id,{});
     for(let i=0;i<student.phoneNumbers.length; i++){
@@ -14,11 +15,12 @@ router.get('/', async (req, res)=>{
     }
     res.send(student);
  });
+ // adding new user
 router.post('/', async(req,res) =>{
      let Student = await Students.create(req.body);
      res.send(Student)
  })
- //adding phone number
+ //adding phone number for a user
  router.post('/:id/phoneNumbers', async(req,res) =>{
       let student=await Students.findById(req.params.id,{});
       if(student.phoneNumbers.length<3){
@@ -34,14 +36,23 @@ router.post('/', async(req,res) =>{
  })
 
  router.patch('/:id', async(req, res)=>{
-    let user = await Customers.findByIdAndUpdate(req.params.id,req.body,{})
-
-    res.send(user)
+    let student = await Students.findByIdAndUpdate(req.params.id,req.body,{})
+    res.send(student)
 })
 
- router.delete('/:id', async(req, res)=>{
-    let user = await Customers.findByIdAndDelete(req.params.id,{});
-    res.send(user)
+ router.delete('/:studentId/phoneNumbers/:phoneNumberId', async(req, res)=>{
+    let phone = await Phones.findByIdAndDelete(req.params.phoneNumberId,{});
+    let student=await Students.findById(req.params.studentId,{});
+    let index=0;
+    for(let i=0; i<student.phoneNumbers.length; i++){
+       if(student.phoneNumbers[i]==req.params.phoneNumberId){
+       student.phoneNumbers.splice(index, 1);
+       }
+       index++;
+    }
+    let s=await Students.findByIdAndUpdate(req.params.studentId, student,{});
+    res.status(200);
+    res.send({"Message":"The phone number has been deleted",phone});
 })
 
 module.exports = router;
