@@ -2,6 +2,7 @@ const express = require('express');
 const methodOverride  = require('method-override');
 const mongoose = require ('mongoose');
 const db = mongoose.connection;
+const cors = require("cors");
 
 //========================
 //PORT
@@ -39,7 +40,9 @@ db.on('open' , ()=>{});
 //     })
 //   )
 
-
+app.use(cors({origin:"http://127.0.0.1:5500",
+              credentials: true}
+              ))
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: false }));// extended: false - does not allow nested objects in query strings
 app.use(express.json());// returns middleware that only parses JSON - may or may not need it depending on your project
