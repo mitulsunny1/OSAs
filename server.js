@@ -40,7 +40,7 @@ db.on('open' , ()=>{});
 //     })
 //   )
 
-app.use(cors({origin:"http://127.0.0.1:5500",
+app.use(cors({origins:"http://127.0.0.1:5500",
               credentials: true}
               ))
 app.use(express.static('public'));
