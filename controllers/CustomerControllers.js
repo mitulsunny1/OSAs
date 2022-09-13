@@ -45,5 +45,4 @@ router.get('/', async (req, res)=>{
     let user = await Customers.findByIdAndDelete(req.params.id,{});
     res.send(user)
 })
-
 module.exports = router;
