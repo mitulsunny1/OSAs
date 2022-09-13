@@ -18,6 +18,7 @@ router.get('/', async (req, res)=>{
         email:user.email,
        }
     });
+    myAllCutomers.reverse();
     res.send(myAllCutomers)
  });
 
@@ -31,12 +32,6 @@ router.get('/', async (req, res)=>{
     res.send(myUser);
  })
  router.post('/', async(req,res) =>{
-     const body={
-         firstName:"Md",
-         lastName:"Obaidulla",
-         phone:"3478909878",
-         email:"mitul.li@yahoo.com",
-     }
      let Customer = await Customers.create(req.body);
      res.send(Customer)
  })
